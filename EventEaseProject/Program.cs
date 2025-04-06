@@ -1,3 +1,7 @@
+using System.Configuration;
+using EventEaseProject.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace EventEaseProject
 {
     public class Program
@@ -8,6 +12,10 @@ namespace EventEaseProject
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            //Register database context
+            builder.Services.AddDbContext<EEDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("LiveConn")));
 
             var app = builder.Build();
 
@@ -31,6 +39,10 @@ namespace EventEaseProject
                 .WithStaticAssets();
 
             app.Run();
+
+         
+
+
         }
     }
 }
